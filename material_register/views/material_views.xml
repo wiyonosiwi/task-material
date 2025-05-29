@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Search View -->
+
+	<record id="material_register_view_search" model="ir.ui.view">
+		<field name="name">material.register.view.search</field>
+		<field name="model">material.register</field>
+		<field name="arch" type="xml">
+			<search string="Masterial Search View">
+				<field name="name" />
+				<field name="material_code" />
+				<field name="material_type" />
+				<field name="material_buy_price" />
+				<field name="partner_id" />
+				<separator/>
+				<filter name="material_type_jeans" string="Material Type - Jeans" domain="[('material_type', '=', 'jeans')]"  />
+				<filter name="material_type_cotton" string="Material Type - Cotton" domain="[('material_type', '=', 'cotton')]"  />
+				<filter name="material_type_fabric" string="Material Type - Fabric" domain="[('material_type', '=', 'fabric')]"  />
+				<group expand="1" string="Group By">
+					<filter string="Related Partner" name='related_partner' context="{'group_by':'partner_id'}"/>
+					<filter string="Material Type" name='material_type' context="{'group_by':'material_type'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<!-- List View -->
+	<record id="material_register_view_tree" model="ir.ui.view">
+		<field name="name">material.register.view.tree</field>
+		<field name="model">material.register</field>
+		<field name="arch" type="xml">
+			<tree string="Material Register List View">
+				<field name="name" />
+				<field name="material_code" />
+				<field name="material_type" />
+				<field name="partner_id" />
+				<field name="material_buy_price" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- Form View -->
+
+
+	<record id="material_register_view_form" model="ir.ui.view">
+		<field name="name">material.register.view.form</field>
+		<field name="model">material.register</field>
+		<field name="arch" type="xml">
+			<form string="Material Register Form View">
+				<sheet>
+					<field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+					<div class="oe_title">
+						<label for="name"/>
+						<h1>
+							<field name="name" placeholder="e.g. Kaos" />
+						</h1>
+					</div>
+					<group>
+						<field name="material_code" />
+						<field name="material_type" />
+						<field name="partner_id" />
+						<field name="currency_id" invisible="1" />
+						<field name="material_buy_price" />
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids"/>
+					<field name="activity_ids" />
+					<field name="message_ids" />
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<!-- Kanban View -->
+
+	<record id="material_register_view_kanban" model="ir.ui.view">
+		<field name="name">material.register.view.kanban</field>
+		<field name="model">material.register</field>
+		<field name="arch" type="xml">
+			<kanban sample="1">
+                <field name="id"/>
+                <field name="currency_id"/>
+                <field name="activity_state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('material.register', 'image_1920', record.id.raw_value)" alt="Product" class="o_image_64_contain"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <t t-if="record.material_code.value">[<field name="material_code"/>]</t>
+                                <div name="material_buy_price" class="mt-1">
+                                    Price: <field name="material_buy_price" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"></field>
+                                </div>
+                                <div name="related_partner" class="mt-1">
+                                    Related Partner: <field name="partner_id"></field>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+		</field>
+	</record>
+
+
+	<record id="material_register_action" model="ir.actions.act_window">
+		<field name="name">Material</field>
+		<field name="res_model">material.register</field>
+		<field name="view_mode">kanban,tree,form</field>
+		<field name="domain">[]</field>
+		<field name="context">{}</field>
+	</record>
+
+
+
+
+
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="material_register_root_menu"
+        name="Material"
+        sequence="10"
+        web_icon="material_register,static/description/icon.png"
+        />
+
+    <menuitem
+        id="material_register_sub_menu"
+        name="Material"
+        action="material_register_action"
+        parent="material_register_root_menu"
+        sequence="10"/>
+
+</odoo>
